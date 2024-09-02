@@ -1,2 +1,5 @@
 .venv
 .idea
+.env
+static/*
+!static/front_page.png
