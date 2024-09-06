@@ -73,5 +73,44 @@ def define_exam_page():
     return render_template('define_exam.html')
 
 
+@app.route(rule='/exams', methods=["GET", "POST"])
+def exams_page():
+    return render_template('exams.html')
+
+
+@app.route(rule='/entry_level', methods=["GET", "POST"])
+def entry_level_page():
+    if request.method == "POST":
+        student_num = request.form.get('student_number')
+        student_name = request.form.get('student_name')
+        q1_paper_answer = request.form.get('paper_answer')
+        q1_metal_answer = request.form.get('metal_answer')
+        q1_plastic_answer = request.form.get('plastic_answer')
+        q1_wood_answer = request.form.get('wood_answer')
+        q2_cylinder_answer = request.form.get('cylinder_answer')
+        q2_pyramid_answer = request.form.get('pyramid_answer')
+        q2_tent_answer = request.form.get('tent_answer')
+        q2_cube_answer = request.form.get('cube_answer')
+        q3_will_last_answer = request.form.get('will_last_answer')
+        q4_most_resistant_answer = request.form.get('most_resistant_answer')
+        q5_paper_property_answer = request.form.get('paper_property_answer')
+        q5_metal_property_answer = request.form.get('metal_property_answer')
+        q5_rubber_band_property_answer = request.form.get('rubber_band_property_answer')
+        q6_cut_instrument_answer = request.form.get('cut_instrument_answer')
+        q6_drawing_instrument_answer = request.form.get('drawing_instrument_answer')
+        q6_bigovane_instrument_answer = request.form.get('bigovane_instrument_answer')
+        q6_drilling_instrument_answer = request.form.get('drilling_instrument_answer')
+        q7_stocks_list = request.form.getlist('stocks_list')
+        q8_correct_word = request.form.getlist('correct_word')
+        q9_call_a_friend = request.form.getlist('call_a_friend')
+        print(q1_paper_answer,
+                q1_metal_answer,
+                q1_plastic_answer,
+                q1_wood_answer,
+                q2_cylinder_answer,
+              q8_correct_word)
+    return render_template('first_exam.html')
+
+
 if __name__ == "__main__":
     app.run()
