@@ -15,9 +15,6 @@
     </style>
 </head>
 <body>
-
-    <img class="bg-img" src="static/front_page.png">
-
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Начална страница</a>
+              <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Начална страница</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('define_exam_page') }}">Въвеждане на отговори на контролни</a>
@@ -35,12 +32,17 @@
               <a class="nav-link" href="{{ url_for('exams_page') }}">Контролни</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Генериране на резултати от контролни</a>
+              <a class="nav-link" href="{{ url_for('exams_results_page') }}">Генериране на резултати от контролни</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
+
+    {% block content %}
+    <img class="bg-img" src="static/front_page.png">
+    {% endblock %}
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>

@@ -112,6 +112,10 @@ def exams_page():
     return render_template('exams.html')
 
 
+@app.route(rule='/exams_results', methods=["GET", "POST"])
+def exams_results_page():
+    return render_template('exams_results.html')
+
 @app.route(rule='/entry_level', methods=["GET", "POST"])
 def entry_level_page():
     if request.method == "POST":
