@@ -36,15 +36,86 @@
       </div>
     </nav>
     <div class="container">
-        <h1 class="display-4 text-center mt-6">Въвеждане на отговори за контролно</h1>
+        <h1 class="display-4 text-center mt-6 mb-5">Въвеждане на отговори за контролно</h1>
         <form method="post", enctype="multipart/form-data">
-            <div class="form-group mb-4">
-              <label for="usr">Име на контролно:</label>
-              <input type="text" class="form-control" name="exam_name" id="usr" required>
+            <h3 class="mb-2">Прикачване на файл с отговори</h3>
+            <div class="row mb-2">
+                <div class="col-4">
+                    <div class="form-group">
+                      <label for="usr" class="form-label">Име на контролно:</label>
+                      <input type="text" class="form-control" name="exam_name" id="usr" required>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                      <label for="class" class="form-label">Клас</label>
+                      <input type="text" class="form-control" name="class_name" id="class" required>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-5">
               <label for="formFileReadonly" class="form-label">Избери файл</label>
               <input class="form-control" type="file" name="sel_exam" id="formFileReadonly" readonly required>
+            </div>
+            <h3 class="mb-4">Определяне на оценяването</h3>
+            <div class="row mb-2">
+              <div class="col-1">
+                <label>Слаб 2</label>
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control" placeholder="Долна граница" aria-label="Долна граница" name="lower_bound_2">
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control" placeholder="Горна граница" aria-label="Горна граница" name="upper_bound_2">
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row mb-2">
+              <div class="col-1">
+                <label>Среден 3</label>
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control" placeholder="Долна граница" aria-label="Долна граница" name="lower_bound_3">
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control" placeholder="Горна граница" aria-label="Горна граница" name="upper_bound_3">
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row mb-2">
+              <div class="col-1">
+                <label>Добър 4</label>
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control" placeholder="Долна граница" aria-label="Долна граница" name="lower_bound_4">
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control" placeholder="Горна граница" aria-label="Горна граница" name="upper_bound_4">
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row mb-2">
+              <div class="col-1">
+                <label>Много добър 5</label>
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control" placeholder="Долна граница" aria-label="Долна граница" name="lower_bound_5">
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control" placeholder="Горна граница" aria-label="Горна граница" name="upper_bound_5">
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row mb-5">
+              <div class="col-1">
+                <label>Отличен 6</label>
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control" placeholder="Долна граница" aria-label="Долна граница" name="lower_bound_6">
+              </div>
+              <div class="col-2">
+                <input type="text" class="form-control" placeholder="Горна граница" aria-label="Горна граница" name="upper_bound_6">
+              </div>
             </div>
             <button class="btn btn-secondary mb-4" type="submit">Submit</button>
             {% with messages = get_flashed_messages() %}

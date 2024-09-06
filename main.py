@@ -32,15 +32,16 @@ key = os.environ.get('dbsecretkey')
 
 def load_exam_answers(exam_csv):
     exam_answers = pd.read_csv(filepath_or_buffer=exam_csv)
+    class_name = request.form.get('class_name')
     exam_name = request.form.get('exam_name')
     cursor = mysql.connection.cursor()
-    cursor.execute('''INSERT INTO exams(exam_name) VALUES(%s) ''', (exam_name,))
+    cursor.execute('''INSERT INTO exams(exam_name, class) VALUES(%s, %s) ''', (exam_name, class_name, ))
     cursor.execute('''SELECT id FROM exams WHERE exam_name = %s''', (exam_name, ))
     result = cursor.fetchall()[0][0]
     for index, curr_row in exam_answers.iterrows():
-        cursor.execute('''INSERT INTO exam_questions(question, available_answers, exam_id
-                        , question_type, question_number) VALUES(%s, %s, %s, %s, %s)''',
-                       ('NA', 'NA', result, curr_row['Тип въпрос'], curr_row['Въпрос'], ))
+        cursor.execute('''INSERT INTO exam_questions( available_answers, exam_id
+                        , question_type, question_number) VALUES(%s, %s, %s, %s)''',
+                       ('NA', result, curr_row['Тип въпрос'], curr_row['Въпрос'], ))
         cursor.execute('''SELECT id 
                           FROM exam_questions 
                           WHERE exam_id = %s
@@ -53,7 +54,38 @@ def load_exam_answers(exam_csv):
     mysql.connection.commit()
     cursor.close()
 
-    return exam_name
+    return result
+
+
+def load_assessment_scale(id_of_exam):
+    lower_bound_2 = int(request.form.get('lower_bound_2'))
+    upper_bound_2 = int(request.form.get('upper_bound_2'))
+    lower_bound_3 = int(request.form.get('lower_bound_3'))
+    upper_bound_3 = int(request.form.get('upper_bound_3'))
+    lower_bound_4 = int(request.form.get('lower_bound_4'))
+    upper_bound_4 = int(request.form.get('upper_bound_4'))
+    lower_bound_5 = int(request.form.get('lower_bound_5'))
+    upper_bound_5 = int(request.form.get('upper_bound_5'))
+    lower_bound_6 = int(request.form.get('lower_bound_6'))
+    upper_bound_6 = int(request.form.get('upper_bound_6'))
+    cursor = mysql.connection.cursor()
+    cursor.execute('INSERT INTO exam_marks_scale VALUES(%s, %s, %s, %s)',
+                   (2, lower_bound_2, upper_bound_2, id_of_exam))
+
+    cursor.execute('INSERT INTO exam_marks_scale VALUES(%s, %s, %s, %s)',
+                   (3, lower_bound_3, upper_bound_3, id_of_exam))
+
+    cursor.execute('INSERT INTO exam_marks_scale VALUES(%s, %s, %s, %s)',
+                   (4, lower_bound_4, upper_bound_4, id_of_exam))
+
+    cursor.execute('INSERT INTO exam_marks_scale VALUES(%s, %s, %s, %s)',
+                   (5, lower_bound_5, upper_bound_5, id_of_exam))
+
+    cursor.execute('INSERT INTO exam_marks_scale VALUES(%s, %s, %s, %s)',
+                   (6, lower_bound_6, upper_bound_6, id_of_exam))
+
+    mysql.connection.commit()
+    cursor.close()
 
 
 @app.route(rule='/')
@@ -69,7 +101,9 @@ def define_exam_page():
         filename = secure_filename(exam_file.filename)
         exam_path = app.config["UPLOAD_FOLDER"] + filename
         exam_file.save(exam_path)
-        flash(f"Отговорите за контролно \"{load_exam_answers(exam_path)}\" са успешно заредени", "success")
+        id_of_exam = load_exam_answers(exam_path)
+        load_assessment_scale(id_of_exam)
+        flash(f"Отговорите за контролно \"{exam_name}\" са успешно заредени", "success")
     return render_template('define_exam.html')
 
 
