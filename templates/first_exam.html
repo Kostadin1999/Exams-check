@@ -13,14 +13,20 @@
             <div class="row mb-5">
                 <div class="col">
                     <div class="form-floating">
-                      <textarea class="form-control" placeholder="Leave a comment here" id="student_number"></textarea>
+                      <textarea class="form-control" placeholder="Leave a comment here" id="student_number" name="stud_num"></textarea>
                       <label for="student_number">Номер в класа</label>
                     </div>
                 </div>
                 <div class="col">
                    <div class="form-floating">
-                      <textarea class="form-control" placeholder="Leave a comment here" id="student_name"></textarea>
+                      <textarea class="form-control" placeholder="Leave a comment here" id="student_name" name="stud_name"></textarea>
                       <label for="student_name">Две имена</label>
+                    </div>
+                </div>
+                <div class="col">
+                   <div class="form-floating">
+                      <textarea class="form-control" placeholder="Leave a comment here" id="student_class" name="stud_class"></textarea>
+                      <label for="student_class">Клас</label>
                     </div>
                 </div>
             </div>
@@ -257,6 +263,7 @@
                                 type="submit">
                      Предай контролно
             </button>
+            <input type="hidden" name="entry_lvl" value="1">
         </form>
     </div>
 

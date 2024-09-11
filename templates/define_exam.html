@@ -6,10 +6,19 @@
             <h3 class="mb-2">Прикачване на файл с отговори</h3>
             <div class="row mb-2">
                 <div class="col-4">
-                    <div class="form-group">
-                      <label for="usr" class="form-label">Име на контролно:</label>
-                      <input type="text" class="form-control" name="exam_name" id="usr" required>
-                    </div>
+                    <label for="browser" class="form-label">Име на контролно:</label>
+                    <input class="form-control" list="browsers" name="exam_name" id="browser">
+                    <datalist id="browsers">
+                      <option value="ВХОДНО НИВО">
+                      <option value="ЧЕРТАНЕ">
+                      <option value="ПРОЕКТИРАНЕ И КОНСТРУИРАНЕ">
+                      <option value="ТЕХНИКА">
+                      <option value="ТЕХНОЛОГИИ">
+                      <option value="КОМУНИКАЦИИ И КОНТРОЛ">
+                      <option value="ИКОНОМИКА">
+                      <option value="ПРИРОДАТА В ДОМА">
+                      <option value="ИЗХОДНО НИВО">
+                    </datalist>
                 </div>
                 <div class="col-2">
                     <div class="form-group">

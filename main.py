@@ -5,6 +5,7 @@ from flask_mysqldb import MySQL
 import pandas as pd
 import os
 from dotenv import load_dotenv
+import chardet
 
 app = Flask(__name__)
 
@@ -29,19 +30,22 @@ app.config['MYSQL_DB'] = SCHEMA
 
 key = os.environ.get('dbsecretkey')
 
+exam_name = ""
+
 
 def load_exam_answers(exam_csv):
-    exam_answers = pd.read_csv(filepath_or_buffer=exam_csv)
+    with open(exam_csv, 'rb') as f:
+        result = chardet.detect(f.read())
+    exam_answers = pd.read_csv(filepath_or_buffer=exam_csv, encoding=result['encoding'])
     class_name = request.form.get('class_name')
-    exam_name = request.form.get('exam_name')
+    global exam_name
     cursor = mysql.connection.cursor()
     cursor.execute('''INSERT INTO exams(exam_name, class) VALUES(%s, %s) ''', (exam_name, class_name, ))
     cursor.execute('''SELECT id FROM exams WHERE exam_name = %s''', (exam_name, ))
     result = cursor.fetchall()[0][0]
     for index, curr_row in exam_answers.iterrows():
-        cursor.execute('''INSERT INTO exam_questions( available_answers, exam_id
-                        , question_type, question_number) VALUES(%s, %s, %s, %s)''',
-                       ('NA', result, curr_row['Тип въпрос'], curr_row['Въпрос'], ))
+        cursor.execute('''INSERT INTO exam_questions( exam_id, question_type, question_number) VALUES(%s, %s, %s)''',
+                       (result, curr_row['Тип въпрос'], curr_row['Въпрос'], ))
         cursor.execute('''SELECT id 
                           FROM exam_questions 
                           WHERE exam_id = %s
@@ -49,7 +53,7 @@ def load_exam_answers(exam_csv):
                           AND question_number = %s''', (result, curr_row['Тип въпрос'], curr_row['Въпрос'], ))
         question_id = cursor.fetchall()[0][0]
         cursor.execute('''INSERT INTO exams_answers(answer, exam_id, question_id, points)
-                          VALUES(%s, %s, %s, %s)''', (curr_row['Въпрос'], result, question_id, curr_row['Точки']))
+                          VALUES(%s, %s, %s, %s)''', (curr_row['Отговор'], result, question_id, curr_row['Точки']))
 
     mysql.connection.commit()
     cursor.close()
@@ -96,6 +100,7 @@ def index():
 @app.route(rule='/define_exam', methods=["GET", "POST"])
 def define_exam_page():
     if request.method == "POST":
+        global exam_name
         exam_name = request.form.get("exam_name")
         exam_file = request.files['sel_exam']
         filename = secure_filename(exam_file.filename)
@@ -116,11 +121,13 @@ def exams_page():
 def exams_results_page():
     return render_template('exams_results.html')
 
+
 @app.route(rule='/entry_level', methods=["GET", "POST"])
 def entry_level_page():
     if request.method == "POST":
-        student_num = request.form.get('student_number')
-        student_name = request.form.get('student_name')
+        student_num = request.form.get('stud_num')
+        student_name = request.form.get('stud_name')
+        student_class = request.form.get('stud_class')
         q1_paper_answer = request.form.get('paper_answer')
         q1_metal_answer = request.form.get('metal_answer')
         q1_plastic_answer = request.form.get('plastic_answer')
@@ -141,12 +148,22 @@ def entry_level_page():
         q7_stocks_list = request.form.getlist('stocks_list')
         q8_correct_word = request.form.getlist('correct_word')
         q9_call_a_friend = request.form.getlist('call_a_friend')
-        print(q1_paper_answer,
-                q1_metal_answer,
-                q1_plastic_answer,
-                q1_wood_answer,
-                q2_cylinder_answer,
-              q8_correct_word)
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("""select ex.id
+                            from exams ex
+                            where ex.exam_name = %s
+                            and ex.class = %s""",
+                       ('Входно ниво', student_class))
+        student_ex = cursor.fetchall()[0][0]
+        cursor.execute("""INSERT INTO students_results_report(student_id, exam_id, 
+                                                              final_grade, student_name)
+                          VALUES(%s, %s, %s, %s)""",
+                       (student_num, student_ex, -1, student_name))
+
+        mysql.connection.commit()
+        cursor.close()
+
     return render_template('first_exam.html')
 
 
