@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="display-4 text-center mt-6 mb-5">Входно ниво 6 клас</h1>
+        <form method="post">
+            <div class="row mb-5">
+                <div class="col-md-4 was-validated">
+                    <label for="student_number" class="form-label">Номер в клас</label>
+                    <input type="number" class="form-control" id="student_number" placeholder="Номер в класа" name="stud_num" required>
+                    <div class="valid-feedback">Попълнен номер в класа</div>
+                    <div class="invalid-feedback">Не сте попълнили номер или данните попълнени от вас не са число</div>
+                </div>
+                <div class="col-md-4 was-validated">
+                    <label for="student_name" class="form-label">Две имена</label>
+                    <input type="text" class="form-control" id="student_name" placeholder="Две имена" name="stud_name" required>
+                    <div class="valid-feedback">Попълнение 2 имена</div>
+                    <div class="invalid-feedback">Моля напишете вашите две имена</div>
+                </div>
+                <div class="col-md-4 was-validated">
+                    <label for="student_class" class="form-label">Две имена</label>
+                    <input type="text" class="form-control" id="student_class" placeholder="Клас" name="stud_class" pattern="^[5-7][а-в]" required>
+                    <div class="valid-feedback">Записан клас</div>
+                    <div class="invalid-feedback">Не сте попълнили класа или не съществува такъв клас</div>
+                </div>
+            </div>
+            <img src="static/5_klas_vhodno_nivo_6klas_vupros_1.png" class="img-fluid" alt="Responsive image">
+            <div class="col mb-5">
+                <div class="  form-check-inline">
+                  <input class="form-check-input" type="radio" name="missing_view" id="missing_view_a" value="а">
+                  <label class="form-check-label" for="missing_view_a">а</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="missing_view" id="missing_view_b" value="б">
+                  <label class="form-check-label" for="missing_view_b">б</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="missing_view" id="missing_view_c" value="в">
+                  <label class="form-check-label" for="missing_view_c">в</label>
+                </div>
+            </div>
+            <img src="static/5_klas_vhodno_nivo_6klas_vupros_2.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">А</p>
+                    <select class="custom-select" name="graphical_image">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а.изделия</option>
+                      <option value="б">б.чертеж</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">Б</p>
+                    <select class="custom-select" name="not_nature_subjects">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а.изделия</option>
+                      <option value="б">б.чертеж</option>
+                    </select>
+                </div>
+            </div>
+            <img src="static/5_klas_vhodno_nivo_6klas_vupros_3.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">А</p>
+                    <select class="custom-select" name="caliper">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а.температура</option>
+                      <option value="б">б.дължина</option>
+                      <option value="в">в.маса</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">Б</p>
+                    <select class="custom-select" name="scales">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а.температура</option>
+                      <option value="б">б.дължина</option>
+                      <option value="в">в.маса</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">Б</p>
+                    <select class="custom-select" name="thermometer">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а.температура</option>
+                      <option value="б">б.дължина</option>
+                      <option value="в">в.маса</option>
+                    </select>
+                </div>
+            </div>
+            <img src="static/5_klas_vhodno_nivo_6klas_vupros_4.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">Първи ? знак</p>
+                    <select class="custom-select" name="approp_word_1">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">инструментите</option>
+                      <option value="б">машините</option>
+                      <option value="в">технологичните операции</option>
+                      <option value="г">технологичната карта</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">Втори ? знак</p>
+                    <select class="custom-select" name="approp_word_2">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">инструментите</option>
+                      <option value="б">машините</option>
+                      <option value="в">технологичните операции</option>
+                      <option value="г">технологичната карта</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">Трети ? знак</p>
+                    <select class="custom-select" name="approp_word_3">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">инструментите</option>
+                      <option value="б">машините</option>
+                      <option value="в">технологичните операции</option>
+                      <option value="г">технологичната карта</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">Четвърти ? знак</p>
+                    <select class="custom-select" name="approp_word_4">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">инструментите</option>
+                      <option value="б">машините</option>
+                      <option value="в">технологичните операции</option>
+                      <option value="г">технологичната карта</option>
+                    </select>
+                </div>
+            </div>
+            <img src="static/5_klas_vhodno_nivo_6klas_vupros_5.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">А. подготвителни</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="prep_delineation" name="prep_operations_group">
+                      <label class="form-check-label" for="prep_delineation">
+                        разчертаване
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="prep_cutting" name="prep_operations_group">
+                      <label class="form-check-label" for="prep_cutting">
+                        рязане
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="prep_measurement" name="prep_operations_group">
+                      <label class="form-check-label" for="prep_measurement">
+                        измерване
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="г" id="prep_centering" name="prep_operations_group">
+                      <label class="form-check-label" for="prep_centering">
+                        центроване
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="д" id="prep_sawing" name="prep_operations_group">
+                      <label class="form-check-label" for="prep_sawing">
+                        пилене
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="е" id="prep_sewing" name="prep_operations_group">
+                      <label class="form-check-label" for="prep_sewing">
+                        шиене
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="ж" id="prep_drilling" name="prep_operations_group">
+                      <label class="form-check-label" for="prep_drilling">
+                        пробиване
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="з" id="prep_gluing" name="prep_operations_group">
+                      <label class="form-check-label" for="prep_gluing">
+                        лепене
+                      </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">А. обработващи</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="in_proc_delineation" name="in_proc_operations_group">
+                      <label class="form-check-label" for="in_proc_delineation">
+                        разчертаване
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="in_proc_cutting" name="in_proc_operations_group">
+                      <label class="form-check-label" for="in_proc_cutting">
+                        рязане
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="in_proc_measurement" name="in_proc_operations_group">
+                      <label class="form-check-label" for="in_proc_measurement">
+                        измерване
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="г" id="in_proc_centering" name="in_proc_operations_group">
+                      <label class="form-check-label" for="in_proc_centering">
+                        центроване
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="д" id="in_proc_sawing" name="in_proc_operations_group">
+                      <label class="form-check-label" for="in_proc_sawing">
+                        пилене
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="е" id="in_proc_sewing" name="in_proc_operations_group">
+                      <label class="form-check-label" for="in_proc_sewing">
+                        шиене
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="ж" id="in_proc_drilling" name="in_proc_operations_group">
+                      <label class="form-check-label" for="in_proc_drilling">
+                        пробиване
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="з" id="in_proc_gluing" name="in_proc_operations_group">
+                      <label class="form-check-label" for="in_proc_gluing">
+                        лепене
+                      </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">А. съединителни</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="conn_delineation" name="conn_operations_group">
+                      <label class="form-check-label" for="conn_delineation">
+                        разчертаване
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="conn_cutting" name="conn_operations_group">
+                      <label class="form-check-label" for="conn_cutting">
+                        рязане
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="conn_measurement" name="conn_operations_group">
+                      <label class="form-check-label" for="conn_measurement">
+                        измерване
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="г" id="conn_centering" name="conn_operations_group">
+                      <label class="form-check-label" for="conn_centering">
+                        центроване
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="д" id="conn_sawing" name="conn_operations_group">
+                      <label class="form-check-label" for="conn_sawing">
+                        пилене
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="е" id="conn_sewing" name="conn_operations_group">
+                      <label class="form-check-label" for="conn_sewing">
+                        шиене
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="ж" id="conn_drilling" name="conn_operations_group">
+                      <label class="form-check-label" for="conn_drilling">
+                        пробиване
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="з" id="conn_gluing" name="conn_operations_group">
+                      <label class="form-check-label" for="conn_gluing">
+                        лепене
+                      </label>
+                    </div>
+                </div>
+            </div>
+            <img src="static/5_klas_vhodno_nivo_6klas_vupros_6.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">А. Машините са съставени от</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="machine" name="mach_composed_od">
+                      <label class="form-check-label" for="machine">
+                        машини
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="mechanisms" name="mach_composed_od">
+                      <label class="form-check-label" for="mechanisms">
+                        механизми
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="machine_el" name="mach_composed_od">
+                      <label class="form-check-label" for="machine_el">
+                        машинни елементи
+                      </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">А. Механизмите са съставени от</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="machine_b" name="mech_composed_od">
+                      <label class="form-check-label" for="machine_b">
+                        машини
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="mechanisms_b" name="mech_composed_od">
+                      <label class="form-check-label" for="mechanisms_b">
+                        механизми
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="machine_el_b" name="mech_composed_od">
+                      <label class="form-check-label" for="machine_el_b">
+                        машинни елементи
+                      </label>
+                    </div>
+                </div>
+            </div>
+            <img src="static/5_klas_vhodno_nivo_6klas_vupros_7.png" class="img-fluid" alt="Responsive image">
+            <div class="col mb-5">
+                <div class="  form-check-inline">
+                  <input class="form-check-input" type="radio" name="baking_is" id="baking_is_a" value="а">
+                  <label class="form-check-label" for="baking_is_a">нагряване отдолу на продуктите</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="baking_is" id="baking_is_b" value="б">
+                  <label class="form-check-label" for="baking_is_b">поставяне в среда с по-ниска температура</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="baking_is" id="baking_is_c" value="в">
+                  <label class="form-check-label" for="baking_is_c">нагряване под въздействието на горещ въздух, лъчиста топлина или контакт с нагрята повърхност до 150-300 градуса по целзий</label>
+                </div>
+            </div>
+            <img src="static/5_klas_vhodno_nivo_6klas_vupros_8.png" class="img-fluid" alt="Responsive image">
+            <div class="col mb-5">
+                <div class="  form-check-inline">
+                  <input class="form-check-input" type="radio" name="visual_voice_comm" id="visual_voice_comm_a" value="а">
+                  <label class="form-check-label" for="visual_voice_comm_a">фотокамера</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="visual_voice_comm" id="visual_voice_comm_b" value="б">
+                  <label class="form-check-label" for="visual_voice_comm_b">мобилен телефон</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="visual_voice_comm" id="visual_voice_comm_c" value="в">
+                  <label class="form-check-label" for="visual_voice_comm_c">термометър</label>
+                </div>
+            </div>
+            <img src="static/5_klas_vhodno_nivo_6klas_vupros_9.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">А. Основният икономически проблем е ________ на ресурси</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="econ_problem_outcomes" name="econ_problem">
+                      <label class="form-check-label" for="econ_problem_outcomes">
+                        разходи
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="econ_problem_budget" name="econ_problem">
+                      <label class="form-check-label" for="prep_cutting">
+                        бюджет
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="econ_problem_shortage" name="econ_problem">
+                      <label class="form-check-label" for="prep_measurement">
+                        недостиг
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="г" id="econ_problem_production" name="econ_problem">
+                      <label class="form-check-label" for="prep_centering">
+                        производство
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="д" id="econ_problem_trade" name="econ_problem">
+                      <label class="form-check-label" for="prep_sawing">
+                        търговия
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="е" id="econ_problem_services" name="econ_problem">
+                      <label class="form-check-label" for="prep_sewing">
+                        услуги
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="ж" id="econ_problem_incomes" name="econ_problem">
+                      <label class="form-check-label" for="prep_drilling">
+                        доходи
+                      </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">А. обработващи</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="econ_activities_outcomes" name="econ_activities">
+                      <label class="form-check-label" for="in_proc_delineation">
+                        разходи
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="econ_activities_budget" name="econ_activities">
+                      <label class="form-check-label" for="in_proc_cutting">
+                        бюджет
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="econ_activities_shortage" name="econ_activities">
+                      <label class="form-check-label" for="in_proc_measurement">
+                        недостиг
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="г" id="econ_activities_production" name="econ_activities">
+                      <label class="form-check-label" for="in_proc_centering">
+                        производство
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="д" id="econ_activities_trade" name="econ_activities">
+                      <label class="form-check-label" for="in_proc_sawing">
+                        търговия
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="е" id="econ_activities_services" name="econ_activities">
+                      <label class="form-check-label" for="in_proc_sewing">
+                        услуги
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="ж" id="econ_activities_incomes" name="econ_activities">
+                      <label class="form-check-label" for="in_proc_drilling">
+                        доходи
+                      </label>
+                    </div>
+                </div>
+            </div>
+            <img src="static/5_klas_vhodno_nivo_6klas_vupros_10.png" class="img-fluid" alt="Responsive image">
+            <div class="row g-3 align-items-center mb-5">
+              <div class="col">
+                <label for="soil_prep" class="col-form-label">подготовка на почвата</label>
+                <select class="form-select" name="soil_prep_val" id="soil_prep" aria-label="Default select example">
+                  <option selected>Избери действие по ред на извършване</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="seeds_distrib" class="col-form-label">разпределяне на семената</label>
+                <select class="form-select" name="seeds_distrib_val" id="seeds_distrib" aria-label="Default select example">
+                  <option selected>Избери действие по ред на извършване</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="moistening" class="col-form-label">навлажняване</label>
+                <select class="form-select" name="moistening_val" id="moistening" aria-label="Default select example">
+                  <option selected>Избери действие по ред на извършване</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="covering_with_soil" class="col-form-label">покриване с почва</label>
+                <select class="form-select" name="cover_with_soil_val" id="covering_with_soil" aria-label="Default select example">
+                  <option selected>Избери действие по ред на извършване</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="seed_prep" class="col-form-label">подготовка на семената</label>
+                <select class="form-select" name="seed_prep_val" id="seed_prep" aria-label="Default select example">
+                  <option selected>Избери действие по ред на извършване</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="blackout" class="col-form-label">затъмняване</label>
+                <select class="form-select" name="blackout_val" id="blackout" aria-label="Default select example">
+                  <option selected>Избери действие по ред на извършване</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+            </div>
+            <img src="static/5_klas_vhodno_nivo_6klas_vupros_11.png" class="img-fluid" alt="Responsive image">
+            <div class="col mb-5">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="animals_main_cares" value="а">
+                  <label class="form-check-label" for="inlineCheckbox1">наторяване</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="animals_main_cares" value="б">
+                  <label class="form-check-label" for="inlineCheckbox2">разхождане</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="animals_main_cares" value="в">
+                  <label class="form-check-label" for="inlineCheckbox2">хранене</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="animals_main_cares" value="г">
+                  <label class="form-check-label" for="inlineCheckbox2">ветеринарни грижи</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="animals_main_cares" value="д">
+                  <label class="form-check-label" for="inlineCheckbox2">пресаждане</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="animals_main_cares" value="е">
+                  <label class="form-check-label" for="inlineCheckbox2">разресване</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
