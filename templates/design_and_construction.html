@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h1 class="display-4 text-center mt-6 mb-5">Проектиране и конструкция</h1>
+        <form method="post">
+            <div class="row mb-5">
+                <div class="col">
+                    <div class="form-floating">
+                      <textarea class="form-control" placeholder="Leave a comment here" id="student_number" name="stud_num"></textarea>
+                      <label for="student_number">Номер в класа</label>
+                    </div>
+                </div>
+                <div class="col">
+                   <div class="form-floating">
+                      <textarea class="form-control" placeholder="Leave a comment here" id="student_name" name="stud_name"></textarea>
+                      <label for="student_name">Две имена</label>
+                    </div>
+                </div>
+                <div class="col">
+                   <div class="form-floating">
+                      <textarea class="form-control" placeholder="Leave a comment here" id="student_class" name="stud_class"></textarea>
+                      <label for="student_class">Клас</label>
+                    </div>
+                </div>
+            </div>
+            <img src="static/5_klas_proektirane_vupros_1.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">А</p>
+                    <select class="custom-select" name="product_construction">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а</option>
+                      <option value="б">б</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">Б</p>
+                    <select class="custom-select" name="product_function">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а</option>
+                      <option value="б">б</option>
+                    </select>
+                </div>
+            </div>
+            <img src="static/5_klas_proektirane_vupros_2.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">А</p>
+                    <select class="custom-select" name="picture_1">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а</option>
+                      <option value="б">б</option>
+                      <option value="в">в</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">Б</p>
+                    <select class="custom-select" name="picture_2">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а</option>
+                      <option value="б">б</option>
+                      <option value="в">в</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">В</p>
+                    <select class="custom-select" name="picture_3">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а</option>
+                      <option value="б">б</option>
+                      <option value="в">в</option>
+                    </select>
+                </div>
+            </div>
+            <img src="static/5_klas_proektirane_vupros_3.png" class="img-fluid" alt="Responsive image">
+            <div class="col mb-5">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="picture_size" id="inlineRadio1" value="а">
+                  <label class="form-check-label" for="inlineRadio1">а</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="picture_size" id="inlineRadio2" value="б">
+                  <label class="form-check-label" for="inlineRadio2">б</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="picture_size" id="inlineRadio3" value="б">
+                  <label class="form-check-label" for="inlineRadio3">в</label>
+                </div>
+            </div>
+            <img src="static/5_klas_proektirane_vupros_4.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">А. дебела непрекъсната линия</p>
+                    <select class="custom-select" name="thick_continuous_line">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а</option>
+                      <option value="б">б</option>
+                      <option value="в">в</option>
+                      <option value="г">г</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">Б. тънка непрекъсната линия</p>
+                    <select class="custom-select" name="thin_continuous_line">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а</option>
+                      <option value="б">б</option>
+                      <option value="в">в</option>
+                      <option value="г">г</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">В. тънка прекъсвана линия</p>
+                    <select class="custom-select" name="thin_dashed_line">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а</option>
+                      <option value="б">б</option>
+                      <option value="в">в</option>
+                      <option value="г">г</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">Г. тънка прекъсвана с точка линия</p>
+                    <select class="custom-select" name="thin_point_dashed_line">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">а</option>
+                      <option value="б">б</option>
+                      <option value="в">в</option>
+                      <option value="г">г</option>
+                    </select>
+                </div>
+            </div>
+            <img src="static/5_klas_proektirane_vupros_5.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">а</p>
+                    <select class="custom-select" name="technical_draw_1">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="г">г</option>
+                      <option value="д">д</option>
+                      <option value="е">е</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">б</p>
+                    <select class="custom-select" name="technical_draw_2">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="г">г</option>
+                      <option value="д">д</option>
+                      <option value="е">е</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">в</p>
+                    <select class="custom-select" name="technical_draw_3">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="г">г</option>
+                      <option value="д">д</option>
+                      <option value="е">е</option>
+                    </select>
+                </div>
+            </div>
+            <img src="static/5_klas_proektirane_vupros_6.png" class="img-fluid" alt="Responsive image">
+            <div class="col mb-5">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="missing_view" id="inlineRadio4" value="а">
+                  <label class="form-check-label" for="inlineRadio4">а</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="missing_view" id="inlineRadio5" value="б">
+                  <label class="form-check-label" for="inlineRadio5">б</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="missing_view" id="inlineRadio6" value="б">
+                  <label class="form-check-label" for="inlineRadio6">в</label>
+                </div>
+            </div>
+            <img src="static/5_klas_proektirane_vupros_7.png" class="img-fluid" alt="Responsive image">
+            <div class="col mb-5">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="construction_methods" value="а">
+                  <label class="form-check-label" for="inlineCheckbox1">а</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="construction_methods" value="б">
+                  <label class="form-check-label" for="inlineCheckbox2">б</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="construction_methods" value="в">
+                  <label class="form-check-label" for="inlineCheckbox3">в</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="construction_methods" value="г">
+                  <label class="form-check-label" for="inlineCheckbox4">г</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="construction_methods" value="д">
+                  <label class="form-check-label" for="inlineCheckbox5">д</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="construction_methods" value="е">
+                  <label class="form-check-label" for="inlineCheckbox6">е</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox7" name="construction_methods" value="е">
+                  <label class="form-check-label" for="inlineCheckbox7">ж</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox8" name="construction_methods" value="е">
+                  <label class="form-check-label" for="inlineCheckbox8">з</label>
+                </div>
+            </div>
+            <img src="static/5_klas_proektirane_vupros_8.png" class="img-fluid" alt="Responsive image">
+            <div class="form-floating mb-5">
+              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+              <label for="floatingTextarea">Избройте подточките по реда на извършването им като започнете с първото действие, което трябва да се извърши(Пример: а,в,г,б)</label>
+            </div>
+            <button class="btn btn-success btn-lg float-end"
+                                type="submit">
+                     Предай контролно
+            </button>
+            <input type="hidden" name="design_constr" value="1">
+        </form>
+    </div>
+{% endblock %}

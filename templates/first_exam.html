@@ -8,26 +8,35 @@
 </head>
 <body>
     <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-success fs-1">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
         <h1 class="display-4 text-center mt-6 mb-5">Входно ниво 5 клас</h1>
         <form method="post">
             <div class="row mb-5">
-                <div class="col">
-                    <div class="form-floating">
-                      <textarea class="form-control" placeholder="Leave a comment here" id="student_number" name="stud_num"></textarea>
-                      <label for="student_number">Номер в класа</label>
-                    </div>
+                <div class="col-md-4 was-validated">
+                    <label for="student_number" class="form-label">Номер в клас</label>
+                    <input type="number" class="form-control" id="student_number" placeholder="Номер в класа" name="stud_num" required>
+                    <div class="valid-feedback">Попълнен номер в класа</div>
+                    <div class="invalid-feedback">Не сте попълнили номер или данните попълнени от вас не са число</div>
                 </div>
-                <div class="col">
-                   <div class="form-floating">
-                      <textarea class="form-control" placeholder="Leave a comment here" id="student_name" name="stud_name"></textarea>
-                      <label for="student_name">Две имена</label>
-                    </div>
+                <div class="col-md-4 was-validated">
+                    <label for="student_name" class="form-label">Две имена</label>
+                    <input type="text" class="form-control" id="student_name" placeholder="Две имена" name="stud_name" required>
+                    <div class="valid-feedback">Попълнение 2 имена</div>
+                    <div class="invalid-feedback">Моля напишете вашите две имена</div>
                 </div>
-                <div class="col">
-                   <div class="form-floating">
-                      <textarea class="form-control" placeholder="Leave a comment here" id="student_class" name="stud_class"></textarea>
-                      <label for="student_class">Клас</label>
-                    </div>
+                <div class="col-md-4 was-validated">
+                    <label for="student_class" class="form-label">Две имена</label>
+                    <input type="text" class="form-control" id="student_class" placeholder="Клас" name="stud_class" pattern="^[5-7][а-в]" required>
+                    <div class="valid-feedback">Записан клас</div>
+                    <div class="invalid-feedback">Не сте попълнили класа или не съществува такъв клас</div>
                 </div>
             </div>
             <img src="static/5_klas_vhodno_nivo_vupros_1.png" class="img-fluid" alt="Responsive image">
@@ -117,21 +126,30 @@
                 </div>
             </div>
             <img src="static/5_klas_vhodno_nivo_vupros_3.png" class="img-fluid" alt="Responsive image">
-            <p class="font-weight-normal">Изберете отговор</p>
-            <select class="custom-select mb-5" name="will_last_answer">
-              <option selected>Не е избран отговор</option>
-              <option value="а">а</option>
-              <option value="б">б</option>
-            </select>
+            <div class="col mb-5">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="will_last_answer" id="will_last_1" value="а">
+                  <label class="form-check-label" for="will_last_1">а</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="will_last_answer" id="will_last_2" value="б">
+                  <label class="form-check-label" for="will_last_2">б</label>
+                </div>
+            </div>
             <img src="static/5_klas_vhodno_nivo_vupros_4.png" class="img-fluid" alt="Responsive image">
             <div class="col mb-5">
-                <p class="font-weight-normal">Изберете отговор</p>
-                <select class="custom-select" name="most_resistant_answer">
-                  <option selected>Не е избран отговор</option>
-                  <option value="а">а</option>
-                  <option value="б">б</option>
-                  <option value="в">в</option>
-                </select>
+                <div class="  form-check-inline">
+                  <input class="form-check-input" type="radio" name="most_resistant_answer" id="question_4_a" value="а">
+                  <label class="form-check-label" for="question_4_a">а</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="most_resistant_answer" id="question_4_b" value="б">
+                  <label class="form-check-label" for="question_4_b">б</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="most_resistant_answer" id="question_4_v" value="в">
+                  <label class="form-check-label" for="question_4_v">в</label>
+                </div>
             </div>
             <img src="static/5_klas_vhodno_nivo_vupros_5.png" class="img-fluid" alt="Responsive image">
             <div class="row mb-5">
@@ -263,7 +281,7 @@
                                 type="submit">
                      Предай контролно
             </button>
-            <input type="hidden" name="entry_lvl" value="1">
+            <input type="hidden" name="entry_lvl" value="Входно ниво">
         </form>
     </div>
 
