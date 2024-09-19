@@ -29,19 +29,21 @@ app.config['MYSQL_DB'] = SCHEMA
 
 key = os.environ.get('dbsecretkey')
 
-exam_name = ""
-
 
 def load_exam_answers(exam_csv):
     with open(exam_csv, 'rb') as f:
         result = chardet.detect(f.read())
     exam_answers = pd.read_csv(filepath_or_buffer=exam_csv, encoding=result['encoding'])
     class_name = request.form.get('class_name')
-    global exam_name
+    exam_name = request.form.get('exam_name')
+    print(f'Exam name: {exam_name}')
     cursor = mysql.connection.cursor()
     cursor.execute('''INSERT INTO exams(exam_name, class) VALUES(%s, %s) ''', (exam_name, class_name,))
-    cursor.execute('''SELECT id FROM exams WHERE exam_name = %s''', (exam_name,))
+    cursor.execute('''SELECT id FROM exams 
+                      WHERE exam_name = %s
+                      AND class = %s''', (exam_name, class_name,))
     result = cursor.fetchall()[0][0]
+    print(f'Exam id: {result}')
     for index, curr_row in exam_answers.iterrows():
         cursor.execute('''INSERT INTO exam_questions( exam_id, question_type, question_number) 
                           VALUES(%s, %s, %s)''',
@@ -64,6 +66,7 @@ def load_exam_answers(exam_csv):
 
 
 def load_assessment_scale(id_of_exam):
+    print(f'id of exam: {id_of_exam}')
     lower_bound_2 = int(request.form.get('lower_bound_2'))
     upper_bound_2 = int(request.form.get('upper_bound_2'))
     lower_bound_3 = int(request.form.get('lower_bound_3'))
@@ -112,6 +115,7 @@ def load_final_report(student_class, student_num, student_name, exam_title):
 
 
 def get_qst_answer_info(question_number, exam, student_class):
+    #print(f"question_number: {question_number} , exam: {exam}, student_class")
     cursor = mysql.connection.cursor()
     cursor.execute("""select ans.answer,
                              ans.points,
@@ -119,7 +123,7 @@ def get_qst_answer_info(question_number, exam, student_class):
                       from exams_answers ans
                       join exams ex on ex.id = ans.exam_id
                       join exam_questions qst on qst.id = ans.question_id
-                      join students_results_report rp on rp.exam_id = ex.id
+                      left join students_results_report rp on rp.exam_id = ex.id
                       where ex.exam_name = %s
                         and ex.class = %s
                         and qst.question_number = %s""",
@@ -130,6 +134,9 @@ def get_qst_answer_info(question_number, exam, student_class):
 
 
 def check_select_answer(question_number, exam, student_class, student_answer, subsection):
+    if student_answer is None:
+        return False
+
     question_answer, points, question_type = get_qst_answer_info(question_number, exam, student_class)
 
     question_answer = question_answer.split(';')
@@ -148,6 +155,9 @@ def check_select_answer(question_number, exam, student_class, student_answer, su
 
 
 def check_one_choice_answer(question_number, exam, student_class, student_answer):
+    if student_answer is None:
+        return False
+
     question_answer, points, question_type = get_qst_answer_info(question_number, exam, student_class)
 
     question_answer = question_answer.strip()
@@ -158,14 +168,43 @@ def check_one_choice_answer(question_number, exam, student_class, student_answer
     return True
 
 
-def check_multiple_choice_answer(question_number, exam, student_class, student_answer):
+def check_list_of_answers(question_number, exam, student_class, student_answer):
+    if student_answer is None:
+        return False
+
     question_answer, points, question_type = get_qst_answer_info(question_number, exam, student_class)
 
     question_answer = question_answer.split(';')
     question_answer = [item.strip() for item in question_answer]
 
-    if len(question_answer) != len(student_answer) or question_answer == student_answer:
+    if len(question_answer) != len(student_answer) or question_answer != student_answer:
         return False
+
+    return True
+
+
+def diff_num_ans_per_subsection(question_number, exam, student_class, student_answer, subsection):
+    if student_answer is None:
+        return False
+
+    question_answer, points, question_type = get_qst_answer_info(question_number, exam, student_class)
+
+    question_answer = question_answer.split(';')
+    question_answer = [item.split('-') for item in question_answer]
+
+    for curr in question_answer:
+        new_arr = []
+        ans = None
+        subs = curr[0].strip()
+        if subs == subsection:
+            if curr[1].find(',') != -1:
+                ans = curr[1].split(',')
+                ans = [item.strip() for item in ans]
+                ans.sort()
+            else:
+                ans = curr[1].strip()
+            if ans != student_answer:
+                return False
 
     return True
 
@@ -195,7 +234,6 @@ def index():
 @app.route(rule='/define_exam', methods=["GET", "POST"])
 def define_exam_page():
     if request.method == "POST":
-        global exam_name
         exam_name = request.form.get("exam_name")
         exam_file = request.files['sel_exam']
         filename = secure_filename(exam_file.filename)
@@ -244,6 +282,7 @@ def entry_level_page():
         q8_correct_word = request.form.getlist('correct_word')
         q9_call_a_friend = request.form.getlist('call_a_friend')
         exam_title = request.form.get('entry_lvl')
+        student_cl = int(student_class[0])
 
         load_final_report(student_class=student_class, student_num=student_num,
                           student_name=student_name, exam_title=exam_title)
@@ -338,22 +377,22 @@ def entry_level_page():
             final_points += points
 
         """Проверка на въпрос 7"""
-        stocks_list = check_multiple_choice_answer(7, exam_title,
-                                                   student_class, q7_stocks_list)
+        stocks_list = check_list_of_answers(7, exam_title,
+                                            student_class, q7_stocks_list)
         if stocks_list is True:
             question_answer, points, question_type = get_qst_answer_info(7, exam_title,
                                                                          student_class)
             final_points += points
 
         """Проверка на въпрос 8"""
-        correct_word = check_multiple_choice_answer(8, exam_title,
-                                                    student_class, q8_correct_word)
+        correct_word = check_list_of_answers(8, exam_title,
+                                             student_class, q8_correct_word)
         if correct_word is True:
             question_answer, points, question_type = get_qst_answer_info(8, exam_title,
                                                                          student_class)
             final_points += points
 
-        final_mark_update(exam_title=exam_title,student_num=student_num,
+        final_mark_update(exam_title=exam_title, student_num=student_num,
                           student_name=student_name, student_class=student_class,
                           final_points=final_points)
 
@@ -366,6 +405,9 @@ def entry_level_page():
 @app.route(rule='/first_exam_six_grade', methods=["GET", "POST"])
 def first_exam_six_grade_page():
     if request.method == 'POST':
+        student_num = request.form.get('stud_num')
+        student_name = request.form.get('stud_name')
+        student_class = request.form.get('stud_class')
         q1_missing_view = request.form.get('missing_view')
         q2_graphical_image = request.form.get('graphical_image')
         q2_not_nature_subjects = request.form.get('not_nature_subjects')
@@ -379,11 +421,11 @@ def first_exam_six_grade_page():
         q5_prep_operations_group = request.form.getlist('prep_operations_group')
         q5_in_proc_operations_group = request.form.getlist('in_proc_operations_group')
         q5_conn_operations_group = request.form.getlist('conn_operations_group')
-        q6_mach_comp_of_first = request.form.getlist('mach_comp_of_first')
-        q6_mach_comp_of_sec = request.form.getlist('mach_comp_of_sec')
-        q6_mech_comp_of = request.form.getlist('mech_comp_of')
-        q7_baking_is = request.form.getlist('baking_is')
-        q8_visual_voice_comm = request.form.get('visual_voice_comm')
+        q6_mach_comp_of_first = request.form.get('mach_comp_of_first')
+        q6_mach_comp_of_sec = request.form.get('mach_comp_of_sec')
+        q6_mach_comp_of_third = request.form.get('mach_comp_of_third')
+        q7_baking_is = request.form.get('baking_is')
+        q8_visual_voice_comm = request.form.getlist('visual_voice_comm')
         q9_econ_problem_main = request.form.get('econ_problem_main')
         q9_econ_act_main_first = request.form.get('econ_act_main_first')
         q9_econ_act_main_sec = request.form.get('econ_act_main_sec')
@@ -391,13 +433,183 @@ def first_exam_six_grade_page():
         q9_cash_acc_first = request.form.get('cash_acc_first')
         q9_cash_acc_sec = request.form.get('cash_acc_sec')
         q9_cash_acc_third = request.form.get('cash_acc_third')
-        q10_soil_prep_val = request.form.get('soil_prep_val')
-        q10_seeds_distrib_val = request.form.get('seeds_distrib_val')
-        q10_moistening_val = request.form.get('moistening_val')
-        q10_cover_with_soil_val = request.form.get('cover_with_soil_val')
-        q10_seed_prep_val = request.form.get('seed_prep_val')
-        q10_blackout_val = request.form.get('blackout_val')
+        q10_first_action = request.form.get('first_action')
+        q10_second_action = request.form.get('second_action')
+        q10_third_action = request.form.get('third_action')
+        q10_fourth_action = request.form.get('fourth_action')
+        q10_fifth_action = request.form.get('fifth_action')
+        q10_sixth_action = request.form.get('sixth_action')
         q11_animals_main_cares = request.form.get('animals_main_cares')
+        exam_title = request.form.get('entry_lvl_6')
+        student_cl = int(student_class[0])
+        print(f'student_cl: {student_cl}, exam_title: {exam_title}, question_number: {q2_graphical_image}')
+
+        final_points = 0
+        """Проверка за въпрос 1"""
+        print(q1_missing_view)
+        missing_view = check_one_choice_answer(1, exam_title,
+                                               student_cl, q1_missing_view)
+        if missing_view is True:
+            question_answer, points, question_type = get_qst_answer_info(1, exam_title,
+                                                                         student_cl)
+            final_points += points
+
+        print(f'final points after question 1: {final_points}')
+
+        """Проверка за въпрос 2"""
+        graphical_image = check_select_answer(2, exam_title, student_cl,
+                                              q2_graphical_image, 'А')
+        not_nature_subjects = check_select_answer(2, exam_title, student_cl,
+                                                  q2_not_nature_subjects, 'Б')
+        if graphical_image is True and not_nature_subjects is True:
+            question_answer, points, question_type = get_qst_answer_info(2, exam_title,
+                                                                         student_cl)
+            final_points += points
+
+        print(f'final points after question 2: {final_points}')
+
+        """Проверка за въпрос 3"""
+        caliper = check_select_answer(3, exam_title, student_cl,
+                                      q3_caliper, 'А')
+        scales = check_select_answer(3, exam_title, student_cl,
+                                     q3_scales, 'Б')
+        thermometer = check_select_answer(3, exam_title, student_cl,
+                                          q3_thermometer, 'В')
+        if caliper is True and scales is True and thermometer is True:
+            question_answer, points, question_type = get_qst_answer_info(3, exam_title,
+                                                                         student_cl)
+            final_points += points
+
+        print(f'final points after question 3: {final_points}')
+
+        """Проверка за въпрос 4"""
+        appropriate_words = []
+        appropriate_words.extend([q4_approp_word_first, q4_approp_word_sec,
+                                  q4_approp_word_third, q4_approp_word_fourth])
+        question_4 = check_list_of_answers(question_number=4,
+                                           exam=exam_title,
+                                           student_class=student_cl,
+                                           student_answer=appropriate_words)
+        if question_4 is True:
+            question_answer, points, question_type = get_qst_answer_info(4, exam_title,
+                                                                         student_cl)
+            final_points += points
+
+        print(f'final points after question 4: {final_points}')
+
+        """Проверка за въпрос 5"""
+        prep_operations_group = check_list_of_answers(5, exam_title, student_cl,
+                                                      q5_prep_operations_group)
+        in_proc_operations_group = check_list_of_answers(5, exam_title, student_cl,
+                                                         q5_in_proc_operations_group)
+        conn_operations_group = check_list_of_answers(5, exam_title, student_cl,
+                                                      q5_conn_operations_group)
+        if {prep_operations_group, in_proc_operations_group, conn_operations_group} == {True}:
+            question_answer, points, question_type = get_qst_answer_info(5, exam_title,
+                                                                         student_cl)
+            final_points += points
+
+        print(f'final points after question 5: {final_points}')
+
+        """Проверка за въпрос 6"""
+        first_sentence = [q6_mach_comp_of_first, q6_mach_comp_of_sec]
+
+        first_sentence_answer = diff_num_ans_per_subsection(question_number=6,
+                                                            exam=exam_title,
+                                                            student_class=student_cl,
+                                                            student_answer=first_sentence,
+                                                            subsection='А')
+
+        second_sentence_answer = diff_num_ans_per_subsection(question_number=6,
+                                                             exam=exam_title,
+                                                             student_class=student_cl,
+                                                             student_answer=q6_mach_comp_of_third,
+                                                             subsection='Б')
+
+        if {first_sentence_answer, second_sentence_answer} == {True}:
+            question_answer, points, question_type = get_qst_answer_info(6, exam_title,
+                                                                         student_cl)
+            final_points += points
+
+        print(f'final points after question 6: {final_points}')
+        """Проверка за въпрос 7"""
+        baking_is = check_one_choice_answer(question_number=7,
+                                            exam=exam_title,
+                                            student_class=student_cl,
+                                            student_answer=q7_baking_is)
+        if baking_is is True:
+            question_answer, points, question_type = get_qst_answer_info(7, exam_title,
+                                                                         student_cl)
+            final_points += points
+
+        print(f'final points after question 7: {final_points}')
+        """Проверка за въпрос 8"""
+        visual_voice_comm = check_list_of_answers(question_number=8,
+                                                  exam=exam_title,
+                                                  student_class=student_cl,
+                                                  student_answer=q8_visual_voice_comm)
+        if visual_voice_comm is True:
+            question_answer, points, question_type = get_qst_answer_info(8, exam_title,
+                                                                         student_cl)
+            final_points += points
+
+        print(f'final points after question 8: {final_points}')
+        """Проверка за въпрос 9"""
+        first_sentence_q9 = diff_num_ans_per_subsection(question_number=9,
+                                                        exam=exam_title,
+                                                        student_class=student_cl,
+                                                        student_answer=q9_econ_problem_main,
+                                                        subsection='А')
+
+        second_sentence_q9_answer = [q9_econ_act_main_first,
+                                     q9_econ_act_main_sec,
+                                     q9_econ_act_main_third]
+        second_sentence_q9 = diff_num_ans_per_subsection(question_number=9,
+                                                         exam=exam_title,
+                                                         student_class=student_cl,
+                                                         student_answer=second_sentence_q9_answer,
+                                                         subsection='Б')
+
+        third_sentence_q9_answer = [q9_cash_acc_first,
+                                    q9_cash_acc_sec,
+                                    q9_cash_acc_third]
+
+        third_sentence_q9 = diff_num_ans_per_subsection(question_number=9,
+                                                        exam=exam_title,
+                                                        student_class=student_cl,
+                                                        student_answer=third_sentence_q9_answer,
+                                                        subsection='В')
+
+        if {first_sentence_q9, second_sentence_q9, third_sentence_q9} == {True}:
+            question_answer, points, question_type = get_qst_answer_info(9, exam_title,
+                                                                         student_cl)
+            final_points += points
+
+        print(f'final points after question 9: {final_points}')
+        """Проверка за въпрос 10"""
+        question_10_answer = [q10_first_action, q10_second_action, q10_third_action,
+                              q10_fourth_action, q10_fifth_action, q10_sixth_action]
+        question_10 = check_list_of_answers(question_number=10,
+                                            exam=exam_title,
+                                            student_class=student_cl,
+                                            student_answer=question_10_answer)
+        if question_10 is True:
+            question_answer, points, question_type = get_qst_answer_info(10, exam_title,
+                                                                         student_cl)
+            final_points += points
+
+        print(f'final points after question 10: {final_points}')
+        """Проверка за въпрос 11"""
+        animals_main_cares = check_list_of_answers(question_number=11,
+                                                   exam=exam_title,
+                                                   student_class=student_cl,
+                                                   student_answer=q11_animals_main_cares)
+        if animals_main_cares is True:
+            question_answer, points, question_type = get_qst_answer_info(11, exam_title,
+                                                                         student_cl)
+            final_points += points
+
+        print(f'final points after question 11: {final_points}')
     return render_template('first_exam_6_grade.html')
 
 
