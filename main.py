@@ -98,17 +98,19 @@ def load_assessment_scale(id_of_exam):
 
 
 def load_final_report(student_class, student_num, student_name, exam_title):
+    class_unit = int(student_class[0])
     cursor = mysql.connection.cursor()
     cursor.execute("""select ex.id
                                 from exams ex
                                 where ex.exam_name = %s
                                 and ex.class = %s""",
-                   (exam_title, student_class))
+                   (exam_title, class_unit))
     student_ex = cursor.fetchall()[0][0]
     cursor.execute("""INSERT INTO students_results_report(student_id, exam_id, 
-                                                                  final_grade, student_name)
-                              VALUES(%s, %s, %s, %s)""",
-                   (student_num, student_ex, -1, student_name))
+                                                          final_grade, student_name,
+                                                          student_class)
+                              VALUES(%s, %s, %s, %s, %s)""",
+                   (student_num, student_ex, -1, student_name, student_class))
 
     mysql.connection.commit()
     cursor.close()
@@ -134,7 +136,7 @@ def get_qst_answer_info(question_number, exam, student_class):
 
 def check_select_answer(question_number, exam, student_class, student_answer, subsection):
     if student_answer is None:
-        return False
+        return False, 0
 
     question_answer, points, question_type = get_qst_answer_info(question_number, exam, student_class)
 
@@ -278,7 +280,7 @@ def entry_level_page():
         q8_correct_word = request.form.getlist('correct_word')
         q9_call_a_friend = request.form.getlist('call_a_friend')
         exam_title = request.form.get('entry_lvl')
-        student_cl = int(student_class[0])
+        class_unit = int(student_class[0])
 
         load_final_report(student_class=student_class, student_num=student_num,
                           student_name=student_name, exam_title=exam_title)
@@ -287,63 +289,63 @@ def entry_level_page():
 
         """Проверка на въпрос 1"""
         paper_answer_res, question_points = check_select_answer(1, exam_title,
-                                                                student_class, q1_paper_answer, 'А')
+                                                                class_unit, q1_paper_answer, 'А')
         metal_answer_res, question_points = check_select_answer(1, exam_title,
-                                                                student_class, q1_metal_answer, 'Б')
+                                                                class_unit, q1_metal_answer, 'Б')
         plastic_answer_res, question_points = check_select_answer(1, exam_title,
-                                                                  student_class, q1_plastic_answer, 'В')
+                                                                  class_unit, q1_plastic_answer, 'В')
         wood_answer_res, question_points = check_select_answer(1, exam_title,
-                                                               student_class, q1_wood_answer, 'Г')
+                                                               class_unit, q1_wood_answer, 'Г')
 
         if {paper_answer_res, metal_answer_res, plastic_answer_res, wood_answer_res} == {True}:
             final_points += question_points
 
         """Проверка на въпрос 2"""
-        cylinder_answer, question_points = check_select_answer(2, exam_title, student_class,
+        cylinder_answer, question_points = check_select_answer(2, exam_title, class_unit,
                                                                q2_cylinder_answer, 'а')
-        pyramid_answer, question_points = check_select_answer(2, exam_title, student_class,
+        pyramid_answer, question_points = check_select_answer(2, exam_title, class_unit,
                                                               q2_pyramid_answer, 'б')
-        tent_answer, question_points = check_select_answer(2, exam_title, student_class,
+        tent_answer, question_points = check_select_answer(2, exam_title, class_unit,
                                                            q2_tent_answer, 'в')
-        cube_answer, question_points = check_select_answer(2, exam_title, student_class,
+        cube_answer, question_points = check_select_answer(2, exam_title, class_unit,
                                                            q2_cube_answer, 'г')
 
         if {cylinder_answer, pyramid_answer, tent_answer, cube_answer} == {True}:
             final_points += question_points
 
         """Проверка на въпрос 3"""
-        will_last_answer, question_points = check_one_choice_answer(3, exam_title, student_class,
+        will_last_answer, question_points = check_one_choice_answer(3, exam_title, class_unit,
                                                                     q3_will_last_answer)
 
         if will_last_answer is True:
             final_points += question_points
 
         """Проверка на въпрос 4"""
-        most_resistant_answer, question_points = check_one_choice_answer(4, exam_title, student_class,
+        most_resistant_answer, question_points = check_one_choice_answer(4, exam_title, class_unit,
                                                                          q4_most_resistant_answer)
 
         if most_resistant_answer is True:
             final_points += question_points
 
         """Проверка на въпрос 5"""
-        metal_property_answer, question_points = check_select_answer(5, exam_title, student_class,
+        metal_property_answer, question_points = check_select_answer(5, exam_title, class_unit,
                                                                      q5_metal_property_answer, 'А')
-        rubber_band_property_answer, question_points = check_select_answer(5, exam_title, student_class,
+        rubber_band_property_answer, question_points = check_select_answer(5, exam_title, class_unit,
                                                                            q5_rubber_band_property_answer, 'Б')
-        paper_property_answer, question_points = check_select_answer(5, exam_title, student_class,
+        paper_property_answer, question_points = check_select_answer(5, exam_title, class_unit,
                                                                      q5_paper_property_answer, 'В')
 
         if {metal_property_answer, rubber_band_property_answer, paper_property_answer} == {True}:
             final_points += question_points
 
         """Проверка на въпрос 6"""
-        drawing_instrument_answer, question_points = check_select_answer(6, exam_title, student_class,
+        drawing_instrument_answer, question_points = check_select_answer(6, exam_title, class_unit,
                                                                          q6_drawing_instrument_answer, 'а')
-        bigovane_instrument_answer, question_points = check_select_answer(6, exam_title, student_class,
+        bigovane_instrument_answer, question_points = check_select_answer(6, exam_title, class_unit,
                                                                           q6_bigovane_instrument_answer, 'б')
-        drilling_instrument_answer, question_points = check_select_answer(6, exam_title, student_class,
+        drilling_instrument_answer, question_points = check_select_answer(6, exam_title, class_unit,
                                                                           q6_drilling_instrument_answer, 'в')
-        cut_instrument_answer, question_points = check_select_answer(6, exam_title, student_class,
+        cut_instrument_answer, question_points = check_select_answer(6, exam_title, class_unit,
                                                                      q6_cut_instrument_answer, 'г')
 
         if {drawing_instrument_answer,
@@ -354,28 +356,28 @@ def entry_level_page():
 
         """Проверка на въпрос 7"""
         stocks_list, question_points = check_list_of_answers(7, exam_title,
-                                                             student_class, q7_stocks_list)
+                                                             class_unit, q7_stocks_list)
         if stocks_list is True:
             final_points += question_points
 
         """Проверка на въпрос 8"""
         correct_word, question_points = check_list_of_answers(8, exam_title,
-                                                              student_class, q8_correct_word)
+                                                              class_unit, q8_correct_word)
         if correct_word is True:
+            final_points += question_points
+
+        """Проверка на въпрос 9"""
+        call_a_friend, question_points = check_one_choice_answer(question_number=9,
+                                                                 exam=exam_title,
+                                                                 student_class=class_unit,
+                                                                 student_answer=q9_call_a_friend)
+
+        if call_a_friend is True:
             final_points += question_points
 
         final_mark_update(exam_title=exam_title, student_num=student_num,
                           student_name=student_name, student_class=student_class,
                           final_points=final_points)
-
-        """Проверка на въпрос 9"""
-        call_a_friend, question_points = check_one_choice_answer(question_number=9,
-                                                                 exam=exam_title,
-                                                                 student_class=student_cl,
-                                                                 student_answer=q9_call_a_friend)
-
-        if call_a_friend is True:
-            final_points += question_points
 
         flash(f"Вашите отговори бяха успешно записани. Очаквайте вашата оценка в сайта на МОН",
               "success")
@@ -422,23 +424,26 @@ def first_exam_six_grade_page():
         q10_sixth_action = request.form.get('sixth_action')
         q11_animals_main_cares = request.form.getlist('animals_main_cares')
         exam_title = request.form.get('entry_lvl_6')
-        student_cl = int(student_class[0])
-        print(f'student_cl: {student_cl}, exam_title: {exam_title}, question_number: {q2_graphical_image}')
+        class_unit = int(student_class[0])
+        print(f'student_cl: {class_unit}, exam_title: {exam_title}, question_number: {q2_graphical_image}')
+
+        load_final_report(student_class=student_class, student_num=student_num,
+                          student_name=student_name, exam_title=exam_title)
 
         final_points = 0
         """Проверка за въпрос 1"""
         print(q1_missing_view)
         missing_view, question_points = check_one_choice_answer(1, exam_title,
-                                                                student_cl, q1_missing_view)
+                                                                class_unit, q1_missing_view)
         if missing_view is True:
             final_points += question_points
 
         print(f'final points after question 1: {final_points}')
 
         """Проверка за въпрос 2"""
-        graphical_image, question_points = check_select_answer(2, exam_title, student_cl,
+        graphical_image, question_points = check_select_answer(2, exam_title, class_unit,
                                                                q2_graphical_image, 'А')
-        not_nature_subjects, question_points = check_select_answer(2, exam_title, student_cl,
+        not_nature_subjects, question_points = check_select_answer(2, exam_title, class_unit,
                                                                    q2_not_nature_subjects, 'Б')
         if {graphical_image, not_nature_subjects} == {True}:
             final_points += question_points
@@ -446,11 +451,11 @@ def first_exam_six_grade_page():
         print(f'final points after question 2: {final_points}')
 
         """Проверка за въпрос 3"""
-        caliper, question_points = check_select_answer(3, exam_title, student_cl,
+        caliper, question_points = check_select_answer(3, exam_title, class_unit,
                                                        q3_caliper, 'А')
-        scales, question_points = check_select_answer(3, exam_title, student_cl,
+        scales, question_points = check_select_answer(3, exam_title, class_unit,
                                                       q3_scales, 'Б')
-        thermometer, question_points = check_select_answer(3, exam_title, student_cl,
+        thermometer, question_points = check_select_answer(3, exam_title, class_unit,
                                                            q3_thermometer, 'В')
         if {caliper, scales, thermometer} == {True}:
             final_points += question_points
@@ -463,7 +468,7 @@ def first_exam_six_grade_page():
                                   q4_approp_word_third, q4_approp_word_fourth])
         question_4, question_points = check_list_of_answers(question_number=4,
                                                             exam=exam_title,
-                                                            student_class=student_cl,
+                                                            student_class=class_unit,
                                                             student_answer=appropriate_words)
         if question_4 is True:
             final_points += question_points
@@ -471,11 +476,11 @@ def first_exam_six_grade_page():
         print(f'final points after question 4: {final_points}')
 
         """Проверка за въпрос 5"""
-        prep_operations_group, question_points = check_list_of_answers(5, exam_title, student_cl,
+        prep_operations_group, question_points = check_list_of_answers(5, exam_title, class_unit,
                                                                        q5_prep_operations_group)
-        in_proc_operations_group, question_points = check_list_of_answers(5, exam_title, student_cl,
+        in_proc_operations_group, question_points = check_list_of_answers(5, exam_title, class_unit,
                                                                           q5_in_proc_operations_group)
-        conn_operations_group, question_points = check_list_of_answers(5, exam_title, student_cl,
+        conn_operations_group, question_points = check_list_of_answers(5, exam_title, class_unit,
                                                                        q5_conn_operations_group)
         if {prep_operations_group, in_proc_operations_group, conn_operations_group} == {True}:
             final_points += question_points
@@ -487,13 +492,13 @@ def first_exam_six_grade_page():
 
         first_sentence_answer, question_points = diff_num_ans_per_subsection(question_number=6,
                                                                              exam=exam_title,
-                                                                             student_class=student_cl,
+                                                                             student_class=class_unit,
                                                                              student_answer=first_sentence,
                                                                              subsection='А')
 
         second_sentence_answer, question_points = diff_num_ans_per_subsection(question_number=6,
                                                                               exam=exam_title,
-                                                                              student_class=student_cl,
+                                                                              student_class=class_unit,
                                                                               student_answer=q6_mach_comp_of_third,
                                                                               subsection='Б')
 
@@ -504,7 +509,7 @@ def first_exam_six_grade_page():
         """Проверка за въпрос 7"""
         baking_is, question_points = check_one_choice_answer(question_number=7,
                                                              exam=exam_title,
-                                                             student_class=student_cl,
+                                                             student_class=class_unit,
                                                              student_answer=q7_baking_is)
         if baking_is is True:
             final_points += question_points
@@ -513,7 +518,7 @@ def first_exam_six_grade_page():
         """Проверка за въпрос 8"""
         visual_voice_comm, question_points = check_list_of_answers(question_number=8,
                                                                    exam=exam_title,
-                                                                   student_class=student_cl,
+                                                                   student_class=class_unit,
                                                                    student_answer=q8_visual_voice_comm)
         if visual_voice_comm is True:
             final_points += question_points
@@ -522,7 +527,7 @@ def first_exam_six_grade_page():
         """Проверка за въпрос 9"""
         first_sentence_q9, question_points = diff_num_ans_per_subsection(question_number=9,
                                                                          exam=exam_title,
-                                                                         student_class=student_cl,
+                                                                         student_class=class_unit,
                                                                          student_answer=q9_econ_problem_main,
                                                                          subsection='А')
 
@@ -531,7 +536,7 @@ def first_exam_six_grade_page():
                                      q9_econ_act_main_third]
         second_sentence_q9, question_points = diff_num_ans_per_subsection(question_number=9,
                                                                           exam=exam_title,
-                                                                          student_class=student_cl,
+                                                                          student_class=class_unit,
                                                                           student_answer=second_sentence_q9_answer,
                                                                           subsection='Б')
 
@@ -541,7 +546,7 @@ def first_exam_six_grade_page():
 
         third_sentence_q9, question_points = diff_num_ans_per_subsection(question_number=9,
                                                                          exam=exam_title,
-                                                                         student_class=student_cl,
+                                                                         student_class=class_unit,
                                                                          student_answer=third_sentence_q9_answer,
                                                                          subsection='В')
 
@@ -554,7 +559,7 @@ def first_exam_six_grade_page():
                               q10_fourth_action, q10_fifth_action, q10_sixth_action]
         question_10, question_points = check_list_of_answers(question_number=10,
                                                              exam=exam_title,
-                                                             student_class=student_cl,
+                                                             student_class=class_unit,
                                                              student_answer=question_10_answer)
         if question_10 is True:
             final_points += question_points
@@ -563,12 +568,19 @@ def first_exam_six_grade_page():
         """Проверка за въпрос 11"""
         animals_main_cares, question_points = check_list_of_answers(question_number=11,
                                                                     exam=exam_title,
-                                                                    student_class=student_cl,
+                                                                    student_class=class_unit,
                                                                     student_answer=q11_animals_main_cares)
         if animals_main_cares is True:
             final_points += question_points
 
         print(f'final points after question 11: {final_points}')
+
+        final_mark_update(exam_title=exam_title, student_num=student_num,
+                          student_name=student_name, student_class=student_class,
+                          final_points=final_points)
+
+        flash(f"Вашите отговори бяха успешно записани. Очаквайте вашата оценка в сайта на МОН",
+              "success")
 
     return render_template('first_exam_6_grade.html')
 

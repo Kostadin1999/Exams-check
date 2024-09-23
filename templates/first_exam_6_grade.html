@@ -9,6 +9,15 @@
 </head>
 <body>
     <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-success fs-1">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
         <h1 class="display-4 text-center mt-6 mb-5">Входно ниво 6 клас</h1>
         <form method="post">
             <div class="row mb-5">
