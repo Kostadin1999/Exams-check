@@ -1,0 +1,494 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h1 class="display-4 text-center mt-6 mb-5">Входно ниво 7 клас</h1>
+        <form method="post">
+            <div class="row mb-5">
+                <div class="col-md-4 was-validated">
+                    <label for="student_number" class="form-label">Номер в клас</label>
+                    <input type="number" class="form-control" id="student_number" placeholder="Номер в класа" name="stud_num" required>
+                    <div class="valid-feedback">Попълнен номер в класа</div>
+                    <div class="invalid-feedback">Не сте попълнили номер или данните попълнени от вас не са число</div>
+                </div>
+                <div class="col-md-4 was-validated">
+                    <label for="student_name" class="form-label">Две имена</label>
+                    <input type="text" class="form-control" id="student_name" placeholder="Две имена" name="stud_name" required>
+                    <div class="valid-feedback">Попълнение 2 имена</div>
+                    <div class="invalid-feedback">Моля напишете вашите две имена</div>
+                </div>
+                <div class="col-md-4 was-validated">
+                    <label for="student_class" class="form-label">Две имена</label>
+                    <input type="text" class="form-control" id="student_class" placeholder="Клас" name="stud_class" pattern="^[5-7][а-в]" required>
+                    <div class="valid-feedback">Записан клас</div>
+                    <div class="invalid-feedback">Не сте попълнили класа или не съществува такъв клас</div>
+                </div>
+            </div>
+            <img src="static/7_klas_vhodno_nivo_vupros_1.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">а.</p>
+                    <select class="custom-select" name="choke_area">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="изглед">изглед</option>
+                      <option value="разрез">разрез</option>
+                      <option value="сечение">сечение</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">б.</p>
+                    <select class="custom-select" name="incision">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="изглед">изглед</option>
+                      <option value="разрез">разрез</option>
+                      <option value="сечение">сечение</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">в.</p>
+                    <select class="custom-select" name="view">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="изглед">изглед</option>
+                      <option value="разрез">разрез</option>
+                      <option value="сечение">сечение</option>
+                    </select>
+                </div>
+            </div>
+            <img src="static/7_klas_vhodno_nivo_vupros_2.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col"><p class="font-weight-normal">обективни</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="objective_taste" name="objective_crit">
+                      <label class="form-check-label" for="objective_taste">
+                        вкус
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="objective_smell" name="objective_crit">
+                      <label class="form-check-label" for="objective_smell">
+                        аромат
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="objective_self_value" name="objective_crit">
+                      <label class="form-check-label" for="objective_self_value">
+                        себестойност
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="г" id="objective_prize" name="objective_crit">
+                      <label class="form-check-label" for="objective_prize">
+                        цена
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="д" id="objective_power" name="objective_crit">
+                      <label class="form-check-label" for="objective_power">
+                        мощност
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="е" id="objective_safety" name="objective_crit">
+                      <label class="form-check-label" for="objective_safety">
+                        безопасност
+                      </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">субективни</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="subjective_taste" name="subjective_crit">
+                      <label class="form-check-label" for="subjective_taste">
+                        вкус
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="subjective_smell" name="subjective_crit">
+                      <label class="form-check-label" for="subjective_smell">
+                        аромат
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="subjective_self_value" name="subjective_crit">
+                      <label class="form-check-label" for="subjective_self_value">
+                        себестойност
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="г" id="subjective_prize" name="subjective_crit">
+                      <label class="form-check-label" for="subjective_prize">
+                        цена
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="д" id="subjective_power" name="subjective_crit">
+                      <label class="form-check-label" for="subjective_power">
+                        мощност
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="е" id="subjective_safety" name="subjective_crit">
+                      <label class="form-check-label" for="subjective_safety">
+                        безопасност
+                      </label>
+                    </div>
+                </div>
+            </div>
+            <img src="static/7_klas_vhodno_nivo_vupros_3.png" class="img-fluid" alt="Responsive image">
+            <div class="form-inline mb-3">
+              <label for="converters_id">Преобразувателите, които превръщат електрическата енергия в друг вид енергия се наричат</label>
+              <select class="custom-select" name="converters" id="converters_id">
+                  <option selected>Моля изберете отговор от списъка</option>
+                  <option value="а">прекъсвачи</option>
+                  <option value="б">консуматори на електрически ток</option>
+              </select>
+            </div>
+            <div class="form-inline mb-5">
+              <label for="devices_id">Устройствата за прекъсване на електрическата верига при претоварване или късо съединение се наричат електрически</label>
+              <select class="custom-select" name="devices" id="devices_id">
+                  <option selected>Моля изберете отговор от списъка</option>
+                  <option value="а">прекъсвачи</option>
+                  <option value="б">консуматори на електрически ток</option>
+              </select>
+            </div>
+            <img src="static/7_klas_vhodno_nivo_vupros_4.png" class="img-fluid" alt="Responsive image">
+            <div class="form-inline mb-5">
+              <label for="making_holes_id">Операцията за изработване на отвори с помощта на свредло се нарича</label>
+              <input type="text" id="making_holes_id" name="making_holes">
+            </div>
+            <img src="static/7_klas_vhodno_nivo_vupros_5.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">механични</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="mechanical_hardness" name="mechanical">
+                      <label class="form-check-label" for="mechanical_hardness">
+                        твърдост
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="mechanical_sust" name="mechanical">
+                      <label class="form-check-label" for="mechanical_sust">
+                        износоустойчивост
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="mechanical_malleability" name="mechanical">
+                      <label class="form-check-label" for="mechanical_malleability">
+                        ковкост
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="г" id="mechanical_longevity" name="mechanical">
+                      <label class="form-check-label" for="mechanical_longevity">
+                        дълготрайност
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="д" id="mechanical_strength" name="mechanical">
+                      <label class="form-check-label" for="mechanical_strength">
+                        якост
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="е" id="mechanical_workability" name="mechanical">
+                      <label class="form-check-label" for="mechanical_workability">
+                        обработваемост
+                      </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">технологични</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="technical_hardness" name="technical">
+                      <label class="form-check-label" for="technical_hardness">
+                        твърдост
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="technical_sust" name="technical">
+                      <label class="form-check-label" for="technical_sust">
+                        износоустойчивост
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="technical_malleability" name="technical">
+                      <label class="form-check-label" for="technical_malleability">
+                        ковкост
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="г" id="technical_longevity" name="technical">
+                      <label class="form-check-label" for="technical_longevity">
+                        дълготрайност
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="д" id="technical_strength" name="technical">
+                      <label class="form-check-label" for="technical_strength">
+                        якост
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="е" id="technical_workability" name="technical">
+                      <label class="form-check-label" for="technical_workability">
+                        обработваемост
+                      </label>
+                    </div>
+                </div>
+            </div>
+            <img src="static/7_klas_vhodno_nivo_vupros_6.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">измерване</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="meas_hacksaw" name="measurement">
+                      <label class="form-check-label" for="meas_hacksaw">
+                        ножовка
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="meas_caliper" name="measurement">
+                      <label class="form-check-label" for="meas_caliper">
+                        шублер
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="meas_sheet_metal_shears" name="measurement">
+                      <label class="form-check-label" for="meas_sheet_metal_shears">
+                        ножица за ламарина
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="г" id="meas_schlosser_line" name="measurement">
+                      <label class="form-check-label" for="meas_schlosser_line">
+                        шлосерска линия
+                      </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">рязане</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="cutting_hacksaw" name="cutting">
+                      <label class="form-check-label" for="cutting_hacksaw">
+                        ножовка
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="cutting_caliper" name="cutting">
+                      <label class="form-check-label" for="cutting_caliper">
+                        шублер
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="cutting_sheet_metal_shears" name="cutting">
+                      <label class="form-check-label" for="cutting_sheet_metal_shears">
+                        ножица за ламарина
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="г" id="cutting_schlosser_line" name="cutting">
+                      <label class="form-check-label" for="cutting_schlosser_line">
+                        шлосерска линия
+                      </label>
+                    </div>
+                </div>
+            </div>
+            <img src="static/7_klas_vhodno_nivo_vupros_7.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="font-weight-normal">свредло</p>
+                    <select class="custom-select" name="drill_bit">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">спояване</option>
+                      <option value="б">пилене</option>
+                      <option value="в">пробиване</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">поялник</p>
+                    <select class="custom-select" name="soldering_iron">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">спояване</option>
+                      <option value="б">пилене</option>
+                      <option value="в">пробиване</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">пила</p>
+                    <select class="custom-select" name="saw">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">спояване</option>
+                      <option value="б">пилене</option>
+                      <option value="в">пробиване</option>
+                    </select>
+                </div>
+            </div>
+            <img src="static/7_klas_vhodno_nivo_vupros_8.png" class="img-fluid" alt="Responsive image">
+            <div class="form-inline mb-3">
+              <label for="water_magnitude_id">Водомерът измерва</label>
+              <select class="custom-select" name="water_magnitude" id="water_magnitude_id">
+                  <option selected>Моля изберете отговор от списъка</option>
+                  <option value="1">обем на водата</option>
+                  <option value="2">топлинна енергия</option>
+                  <option value="3">ел. енергия</option>
+              </select>
+
+              <label for="water_unit_of_measure_id">, а мерната единица, която се използва за отчитането е </label>
+              <select class="custom-select" name="water_unit_of_measure" id="water_unit_of_measure_id">
+                  <option selected>Моля изберете отговор от списъка</option>
+                  <option value="а">киловат час</option>
+                  <option value="б">кубични метри</option>
+              </select>
+            </div>
+            <div class="form-inline mb-3">
+              <label for="electricity_magnitude_id">Eлектромерът измерва</label>
+              <select class="custom-select" name="electricity_magnitude" id="electricity_magnitude_id">
+                  <option selected>Моля изберете отговор от списъка</option>
+                  <option value="1">обем на водата</option>
+                  <option value="2">топлинна енергия</option>
+                  <option value="3">ел. енергия</option>
+              </select>
+
+              <label for="electricity_unit_of_measure_id">, а мерната единица, която се използва за отчитането е </label>
+              <select class="custom-select" name="electricity_unit_of_measure" id="electricity_unit_of_measure_id">
+                  <option selected>Моля изберете отговор от списъка</option>
+                  <option value="а">киловат час</option>
+                  <option value="б">кубични метри</option>
+              </select>
+            </div>
+            <div class="form-inline mb-5">
+              <label for="thermo_magnitude_id">Топломерът измерва</label>
+              <select class="custom-select" name="thermo_magnitude" id="thermo_magnitude_id">
+                  <option selected>Моля изберете отговор от списъка</option>
+                  <option value="1">обем на водата</option>
+                  <option value="2">топлинна енергия</option>
+                  <option value="3">ел. енергия</option>
+              </select>
+
+              <label for="thermo_unit_of_measure_id">, а мерната единица, която се използва за отчитането е </label>
+              <select class="custom-select" name="thermo_unit_of_measure" id="thermo_unit_of_measure_id">
+                  <option selected>Моля изберете отговор от списъка</option>
+                  <option value="а">киловат час</option>
+                  <option value="б">кубични метри</option>
+              </select>
+            </div>
+            <img src="static/7_klas_vhodno_nivo_vupros_9.png" class="img-fluid" alt="Responsive image">
+            <div class="col mb-5">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="signal_installations" value="а">
+                  <label class="form-check-label" for="inlineCheckbox1">пожароизвестителна</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="signal_installations" value="б">
+                  <label class="form-check-label" for="inlineCheckbox2">домофонна</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="signal_installations" value="в">
+                  <label class="form-check-label" for="inlineCheckbox2">сигналноохранителна</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="signal_installations" value="г">
+                  <label class="form-check-label" for="inlineCheckbox2">звънчева</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="signal_installations" value="д">
+                  <label class="form-check-label" for="inlineCheckbox2">телефонна</label>
+                </div>
+            </div>
+            <img src="static/7_klas_vhodno_nivo_vupros_10.png" class="img-fluid" alt="Responsive image">
+            <div class="row mb-5">
+                <div class="col mb-3">
+                    <p class="font-weight-normal">разход</p>
+                    <select class="custom-select" name="expense">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">паричната сметка на доходите и разходите в домакинствотоза определен период от време</option>
+                      <option value="б">парите за заплащане на всичко необходимо за създаванетои реализацията на продукцията</option>
+                      <option value="в">разликата между всички приходи и разходи</option>
+                    </select>
+                </div>
+                <div class="col mb-3">
+                    <p class="font-weight-normal">семеен бюджет</p>
+                    <select class="custom-select" name="family_budget">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">паричната сметка на доходите и разходите в домакинството за определен период от време</option>
+                      <option value="б">парите за заплащане на всичко необходимо за създаването и реализацията на продукцията</option>
+                      <option value="в">разликата между всички приходи и разходи</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <p class="font-weight-normal">печалба</p>
+                    <select class="custom-select" name="profit">
+                      <option selected>Моля изберете отговор от списъка</option>
+                      <option value="а">паричната сметка на доходите и разходите в домакинството за определен период от време</option>
+                      <option value="б">парите за заплащане на всичко необходимо за създаването и реализацията на продукцията</option>
+                      <option value="в">разликата между всички приходи и разходи</option>
+                    </select>
+                </div>
+            </div>
+            <img src="static/7_klas_vhodno_nivo_vupros_11.png" class="img-fluid" alt="Responsive image">
+            <div class="col mb-5">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="econ_act_id" name="entrepreneurship" value="а">
+                  <label class="form-check-label" for="inlineCheckbox1">икономическа дейност с цел печалба</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="math_comp" name="entrepreneurship" value="б">
+                  <label class="form-check-label" for="inlineCheckbox2">участие в математическо състезание</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="risk_accept" name="entrepreneurship" value="в">
+                  <label class="form-check-label" for="inlineCheckbox2">поемане на риск – започване на нещо ново въпреки очакваните трудности и възможни загуби</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="initiative" name="entrepreneurship" value="г">
+                  <label class="form-check-label" for="inlineCheckbox2">проява на инициативност в обучението в училище</label>
+                </div>
+            </div>
+            <img src="static/7_klas_vhodno_nivo_vupros_12.png" class="img-fluid" alt="Responsive image">
+            <div class="form-inline mb-3">
+              <label for="soil_id">Плодородието на почвата може да се увеличи чрез добавяне на</label>
+              <select class="custom-select" name="soil" id="soil_id">
+                  <option selected>Моля изберете отговор от списъка</option>
+                  <option value="а">вода</option>
+                  <option value="б">компост</option>
+                  <option value="в">оранжерии</option>
+                  <option value="г">градини</option>
+              </select>
+            </div>
+            <div class="form-inline mb-5">
+              <label for="plants_and_seedlings_first_id">Култивационните съоръжения за производство на растения и разсад са</label>
+              <select class="custom-select" name="plants_and_seedlings_first" id="plants_and_seedlings_first_id">
+                  <option selected>Моля изберете отговор от списъка</option>
+                  <option value="а">вода</option>
+                  <option value="б">компост</option>
+                  <option value="в">оранжерии</option>
+                  <option value="г">градини</option>
+              </select>
+
+              <label for="plants_and_seedlings_sec_id">и</label>
+              <select class="custom-select" name="plants_and_seedlings_sec" id="plants_and_seedlings_sec_id">
+                  <option selected>Моля изберете отговор от списъка</option>
+                  <option value="а">вода</option>
+                  <option value="б">компост</option>
+                  <option value="в">оранжерии</option>
+                  <option value="г">градини</option>
+              </select>
+            </div>
+            <img src="static/7_klas_vhodno_nivo_vupros_13.png" class="img-fluid" alt="Responsive image">
+            <div class="col mb-5">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="animals_conditions" name="farm_requirements" value="а">
+                  <label class="form-check-label" for="animals_conditions">Да осигурява подходящи жизнени условия на животните</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="is_registered" name="farm_requirements" value="б">
+                  <label class="form-check-label" for="is_registered">Да е регистрирана и да работи законно</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="place_boundaries" name="farm_requirements" value="в">
+                  <label class="form-check-label" for="place_boundaries">Да е в границите на населеното място</label>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

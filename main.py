@@ -585,6 +585,11 @@ def first_exam_six_grade_page():
     return render_template('first_exam_6_grade.html')
 
 
+@app.route(rule='/first_exam_seventh_grade', methods=["GET", "POST"])
+def first_exam_seventh_grade_page():
+    return render_template('first_exam_7_grade.html')
+
+
 @app.route(rule='/design_and_construction', methods=["GET", "POST"])
 def design_and_construction_page():
     return render_template('design_and_construction.html')
