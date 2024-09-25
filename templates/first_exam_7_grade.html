@@ -235,6 +235,45 @@
                       </label>
                     </div>
                 </div>
+                <div class="col">
+                    <p class="font-weight-normal">експлоатационни</p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="а" id="exploitation_hardness" name="exploitation">
+                      <label class="form-check-label" for="exploitation_hardness">
+                        твърдост
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="б" id="exploitation_sust" name="exploitation">
+                      <label class="form-check-label" for="exploitation_sust">
+                        износоустойчивост
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="в" id="exploitation_malleability" name="exploitation">
+                      <label class="form-check-label" for="exploitation_malleability">
+                        ковкост
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="г" id="exploitation_longevity" name="exploitation">
+                      <label class="form-check-label" for="exploitation_longevity">
+                        дълготрайност
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="д" id="exploitation_strength" name="exploitation">
+                      <label class="form-check-label" for="exploitation_strength">
+                        якост
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="е" id="exploitation_workability" name="exploitation">
+                      <label class="form-check-label" for="exploitation_workability">
+                        обработваемост
+                      </label>
+                    </div>
+                </div>
             </div>
             <img src="static/7_klas_vhodno_nivo_vupros_6.png" class="img-fluid" alt="Responsive image">
             <div class="row mb-5">
@@ -489,6 +528,7 @@
                   <label class="form-check-label" for="place_boundaries">Да е в границите на населеното място</label>
                 </div>
             </div>
+            <input type="hidden" name="entry_lvl_7" value="ВХОДНО НИВО">
         </form>
     </div>
 {% endblock %}

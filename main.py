@@ -177,8 +177,13 @@ def check_list_of_answers(question_number, exam, student_class, student_answer):
     question_answer = question_answer.split(';')
     question_answer = [item.strip() for item in question_answer]
 
-    if len(question_answer) != len(student_answer) or question_answer != student_answer:
-        return False, 0
+    if type(student_answer) is list:
+        if len(question_answer) != len(student_answer) or question_answer != student_answer:
+            return False, 0
+    else:
+        student_answer = student_answer.strip()
+        if student_answer not in question_answer:
+            return False, 0
 
     return True, points
 
@@ -621,6 +626,239 @@ def first_exam_seventh_grade_page():
         q12_plants_and_seedlings_first = request.form.get('plants_and_seedlings_first')
         q12_plants_and_seedlings_sec = request.form.get('plants_and_seedlings_sec')
         q13_farm_requirements = request.form.getlist('farm_requirements')
+        exam_title = request.form.get('entry_lvl_7')
+        class_unit = int(student_class[0])
+
+        final_points = 0
+
+        """Проверка за въпрос 1"""
+        choke_area, question_points = check_select_answer(question_number=1,
+                                                          exam=exam_title,
+                                                          student_class=class_unit,
+                                                          student_answer=q1_choke_area,
+                                                          subsection='а')
+
+        incision, question_points = check_select_answer(question_number=1,
+                                                        exam=exam_title,
+                                                        student_class=class_unit,
+                                                        student_answer=q1_incision,
+                                                        subsection='б')
+
+        view, question_points = check_select_answer(question_number=1,
+                                                    exam=exam_title,
+                                                    student_class=class_unit,
+                                                    student_answer=q1_view,
+                                                    subsection='в')
+
+        if {choke_area, incision, view} == {True}:
+            final_points += question_points
+
+        print(f'final points after question 1: {final_points}')
+
+        """Проверка за въпрос 2"""
+        objective_crit, question_points = check_list_of_answers(question_number=2,
+                                                                exam=exam_title,
+                                                                student_class=class_unit,
+                                                                student_answer=q2_objective_crit)
+
+        subjective_crit, question_points = check_list_of_answers(question_number=2,
+                                                                 exam=exam_title,
+                                                                 student_class=class_unit,
+                                                                 student_answer=q2_subjective_crit)
+
+        if {objective_crit, subjective_crit} == {True}:
+            final_points += question_points
+
+        print(f'final points after question 2: {final_points}')
+
+        """Проверка за въпрос 3"""
+        converters, question_points = check_select_answer(question_number=3,
+                                                          exam=exam_title,
+                                                          student_class=class_unit,
+                                                          student_answer=q3_converters,
+                                                          subsection='А')
+
+        devices, question_points = check_select_answer(question_number=3,
+                                                       exam=exam_title,
+                                                       student_class=class_unit,
+                                                       student_answer=q3_devices,
+                                                       subsection='Б')
+
+        if {converters, devices} == {True}:
+            final_points += question_points
+
+        print(f'final points after question 3: {final_points}')
+
+        """Проверка за въпрос 4"""
+        making_holes, question_points = check_list_of_answers(question_number=4,
+                                                              exam=exam_title,
+                                                              student_class=class_unit,
+                                                              student_answer=q4_making_holes)
+
+        if making_holes is True:
+            final_points += question_points
+
+        print(f'final points after question 4: {final_points}')
+
+        """Проверка за въпрос 5"""
+        mechanical, question_points = check_list_of_answers(question_number=5,
+                                                            exam=exam_title,
+                                                            student_class=class_unit,
+                                                            student_answer=q5_mechanical)
+
+        technical, question_points = check_list_of_answers(question_number=5,
+                                                           exam=exam_title,
+                                                           student_class=class_unit,
+                                                           student_answer=q5_technical)
+
+        if {mechanical, technical} == {True}:
+            final_points += question_points
+
+        print(f'final points after question 5: {final_points}')
+
+        """Проверка за въпрос 6"""
+        measurement, question_points = check_list_of_answers(question_number=6,
+                                                             exam=exam_title,
+                                                             student_class=class_unit,
+                                                             student_answer=q6_measurement)
+
+        cutting, question_points = check_list_of_answers(question_number=6,
+                                                         exam=exam_title,
+                                                         student_class=class_unit,
+                                                         student_answer=q6_cutting)
+
+        if {measurement, cutting} == {True}:
+            final_points += question_points
+
+        print(f'final points after question 6: {final_points}')
+
+        """Проверка за въпрос 7"""
+        drill_bit, question_points = check_select_answer(question_number=7,
+                                                         exam=exam_title,
+                                                         student_class=class_unit,
+                                                         student_answer=q7_drill_bit,
+                                                         subsection='А')
+
+        soldering_iron, question_points = check_select_answer(question_number=7,
+                                                              exam=exam_title,
+                                                              student_class=class_unit,
+                                                              student_answer=q7_soldering_iron,
+                                                              subsection='Б')
+
+        saw, question_points = check_select_answer(question_number=7,
+                                                   exam=exam_title,
+                                                   student_class=class_unit,
+                                                   student_answer=q7_saw,
+                                                   subsection='В')
+
+        if {drill_bit, soldering_iron, saw} == {True}:
+            final_points += question_points
+
+        print(f'final points after question 7: {final_points}')
+
+        """Проверка за въпрос 8"""
+        water_meter_ans = [q8_water_magnitude, q8_water_unit_of_measure]
+        water_meter, question_points = diff_num_ans_per_subsection(question_number=8,
+                                                                   exam=exam_title,
+                                                                   student_class=class_unit,
+                                                                   student_answer=water_meter_ans,
+                                                                   subsection='А')
+
+        electricity_ans = [q8_electricity_magnitude, q8_electricity_unit_of_measure]
+        electricity, question_points = diff_num_ans_per_subsection(question_number=8,
+                                                                   exam=exam_title,
+                                                                   student_class=class_unit,
+                                                                   student_answer=electricity_ans,
+                                                                   subsection='Б')
+
+        thermo_ans = [q8_thermo_magnitude, q8_thermo_unit_of_measure]
+        thermo, question_points = diff_num_ans_per_subsection(question_number=8,
+                                                              exam=exam_title,
+                                                              student_class=class_unit,
+                                                              student_answer=thermo_ans,
+                                                              subsection='В')
+
+        if {water_meter, electricity, thermo} == {True}:
+            final_points += question_points
+
+        print(f'final points after question 8: {final_points}')
+
+        """Проверка за въпрос 9"""
+        signal_installations, question_points = check_list_of_answers(question_number=9,
+                                                                      exam=exam_title,
+                                                                      student_class=class_unit,
+                                                                      student_answer=q9_signal_installations)
+
+        if signal_installations is True:
+            final_points += question_points
+
+        print(f'final points after question 9: {final_points}')
+
+        """Проверка за въпрос 10"""
+        expense, question_points = check_select_answer(question_number=10,
+                                                       exam=exam_title,
+                                                       student_class=class_unit,
+                                                       student_answer=q10_expense,
+                                                       subsection='А')
+
+        family_budget, question_points = check_select_answer(question_number=10,
+                                                             exam=exam_title,
+                                                             student_class=class_unit,
+                                                             student_answer=q10_family_budget,
+                                                             subsection='Б')
+
+        profit, question_points = check_select_answer(question_number=10,
+                                                      exam=exam_title,
+                                                      student_class=class_unit,
+                                                      student_answer=q10_profit,
+                                                      subsection='В')
+
+        if {expense, family_budget, profit} == {True}:
+            final_points += question_points
+
+        print(f'final points after question 10: {final_points}')
+
+        """Проверка за въпрос 11"""
+        entrepreneurship, question_points = check_list_of_answers(question_number=11,
+                                                                  exam=exam_title,
+                                                                  student_class=class_unit,
+                                                                  student_answer=q11_entrepreneurship)
+
+        if entrepreneurship is True:
+            final_points += question_points
+
+        print(f'final points after question 11: {final_points}')
+
+        """Проверка за въпрос 12"""
+        soil, question_points = diff_num_ans_per_subsection(question_number=12,
+                                                            exam=exam_title,
+                                                            student_class=class_unit,
+                                                            student_answer=q12_soil,
+                                                            subsection='А')
+
+        facilities_ans = [q12_plants_and_seedlings_first, q12_plants_and_seedlings_sec]
+        facilities, question_points = diff_num_ans_per_subsection(question_number=12,
+                                                                  exam=exam_title,
+                                                                  student_class=class_unit,
+                                                                  student_answer=facilities_ans,
+                                                                  subsection='Б')
+
+        if {soil, facilities} == {True}:
+            final_points += question_points
+
+        print(f'final points after question 12: {final_points}')
+
+        """Проверка за въпрос 13"""
+        farm_requirements, question_points = check_list_of_answers(question_number=13,
+                                                                   exam=exam_title,
+                                                                   student_class=class_unit,
+                                                                   student_answer=q13_farm_requirements)
+
+        if farm_requirements is True:
+            final_points += question_points
+
+        print(f'final points after question 13: {final_points}')
+
     return render_template('first_exam_7_grade.html')
 
 
